@@ -1,22 +1,21 @@
 import React from "react";
 import Menu from "../Menu";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import * as actions from "../../actions";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function SwipeableTemporaryDrawer(props) {
-  const { modal, toggleDrawer, value, handleModalChange } = props;
+export default function SwipeableTemporaryDrawer() {
+  const { modal } = useSelector((state) => state.navigation);
+  const dispatch = useDispatch();
 
   return (
     <div>
       <SwipeableDrawer
         open={modal}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        onClose={() => dispatch(actions.closeModal())}
+        onOpen={() => dispatch(actions.openModal())}
       >
-        <Menu
-          value={value}
-          handleChange={handleModalChange}
-          toggleDrawer={toggleDrawer}
-        />
+        <Menu />
       </SwipeableDrawer>
     </div>
   );

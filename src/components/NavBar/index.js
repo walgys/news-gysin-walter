@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect } from "react"
+import Tabs from "@material-ui/core/Tabs"
+import Tab from "@material-ui/core/Tab"
+import * as actions from "../../actions"
+import { useDispatch } from "react-redux"
+import { makeStyles } from "@material-ui/core/styles"
+import { Link, useLocation } from "react-router-dom"
 
 const allTabs = [
   { link: "/", label: "Home" },
@@ -12,7 +14,7 @@ const allTabs = [
   { link: "/Shows", label: "Espectáculos" },
   { link: "/Sports", label: "Deportes" },
   { link: "/Design", label: "Diseño" },
-];
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,20 +22,20 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
-}));
+}))
 
 const NavBar = (props) => {
-  const location = useLocation();
-  const [value, setValue] = useState(location.pathname);
+  const location = useLocation()
+  const dispatch = useDispatch()
   useEffect(() => {
-    setValue(location.pathname);
-  }, [location]);
+    dispatch(actions.setLocation(location.pathname))
+  }, [location, dispatch])
 
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <div>
-        <Tabs value={value} centered={true}>
+        <Tabs value={location.pathname} centered={true}>
           {allTabs.map((tab) => (
             <Tab
               key={tab.label}
@@ -46,7 +48,7 @@ const NavBar = (props) => {
         </Tabs>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

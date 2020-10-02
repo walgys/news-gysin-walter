@@ -1,10 +1,25 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React from "react"
+import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { fetchNews, ENDPOINT } from "../utils"
 
-const Category = (props) => {
-  const { slug } = useParams();
+const Category = () => {
+  const { slug } = useParams()
+  const categories = useSelector((state) => state.categories)
+  const news = useSelector((state) => state.news)
+  const catID = categories.find((cat) => cat.link === "/" + slug).id
 
-  return <div>{slug}</div>;
-};
+  fetchNews(`${ENDPOINT}news/category/${catID}`)
 
-export default Category;
+  return (
+    <div>
+      <ul>
+        {news.map((news) => (
+          <li key={news.news_id}>{news.title}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default Category

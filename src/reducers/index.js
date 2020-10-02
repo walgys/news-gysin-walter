@@ -1,9 +1,17 @@
 import * as actions from "../actions";
 
 const initialState = {
+  categories: [
+    { link: "/", label: "Home", id: 0 },
+    { link: "/Politics", label: "Política", id: 1 },
+    { link: "/International", label: "Internacionales", id: 2 },
+    { link: "/Tech", label: "Tecnología", id: 3 },
+    { link: "/Shows", label: "Espectáculos", id: 4 },
+    { link: "/Sports", label: "Deportes", id: 5 },
+    { link: "/Design", label: "Diseño", id: 6 },
+  ],
   news: [],
-  localization: "/",
-  category: "Home",
+  navigation: { location: "/", category: "Home", modal: false },
   error: undefined,
   loading: undefined,
 };
@@ -40,12 +48,41 @@ const newsReducer = (state = initialState, action) => {
         news: [],
       };
 
-    case actions.SET_CATEGORY_AND_LOCALIZATION:
+    case actions.SET_CATEGORY:
       return {
         ...state,
-        category: action.payload.category,
-        localization: action.payload.localization,
+        navigation: {
+          ...state.navigation,
+          category: action.payload.category,
+        },
         news: [],
+      };
+
+    case actions.SET_LOCATION:
+      return {
+        ...state,
+        navigation: {
+          ...state.navigation,
+          location: action.payload.location,
+        },
+      };
+
+    case actions.OPEN_MODAL:
+      return {
+        ...state,
+        navigation: {
+          ...state.navigation,
+          modal: true,
+        },
+      };
+
+    case actions.CLOSE_MODAL:
+      return {
+        ...state,
+        navigation: {
+          ...state.navigation,
+          modal: false,
+        },
       };
 
     default:

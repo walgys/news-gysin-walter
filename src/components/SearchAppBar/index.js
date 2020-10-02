@@ -9,6 +9,8 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { Button } from "@material-ui/core";
+import * as actions from "../../actions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,8 +69,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar(props) {
+export default function SearchAppBar() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
@@ -79,7 +82,7 @@ export default function SearchAppBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={props.toggleDrawer(true)}
+            onClick={() => dispatch(actions.openModal())}
           >
             <MenuIcon />
           </IconButton>
