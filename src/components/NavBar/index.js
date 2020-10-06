@@ -19,8 +19,24 @@ const allTabs = [
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    color: "black",
     width: "100%",
+
     backgroundColor: theme.palette.background.paper,
+  },
+  tabs: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.55rem",
+    },
+
+    [theme.breakpoints.up("md")]: {
+      fontSize: "0.75rem",
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "1rem",
+    },
+
+    minWidth: 100,
   },
 }))
 
@@ -34,19 +50,18 @@ const NavBar = (props) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <div>
-        <Tabs value={location.pathname} centered={true}>
-          {allTabs.map((tab) => (
-            <Tab
-              key={tab.label}
-              label={tab.label}
-              value={tab.link}
-              component={Link}
-              to={tab.link}
-            />
-          ))}
-        </Tabs>
-      </div>
+      <Tabs value={location.pathname} centered={true}>
+        {allTabs.map((tab) => (
+          <Tab
+            className={classes.tabs}
+            key={tab.label}
+            label={tab.label}
+            value={tab.link}
+            component={Link}
+            to={tab.link}
+          />
+        ))}
+      </Tabs>
     </div>
   )
 }

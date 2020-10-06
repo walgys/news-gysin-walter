@@ -1,16 +1,14 @@
-import SearchAppBar from "../SearchAppBar";
-import React from "react";
-import MenuModal from "../MenuModal";
-import NavBar from "../NavBar";
+import SearchAppBar from "../SearchAppBar"
+import React from "react"
+import MenuModal from "../MenuModal"
 
 const TopBar = () => {
   return (
     <>
       <SearchAppBar />
-      <NavBar />
       <MenuModal />
     </>
-  );
-};
+  )
+}
 
-export default TopBar;
+export default TopBar
