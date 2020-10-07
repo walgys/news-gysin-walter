@@ -23,17 +23,25 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
 
     backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+    [theme.breakpoints.up("md")]: {
+      display: "block",
+    },
   },
   tabs: {
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "0.55rem",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
     },
 
     [theme.breakpoints.up("md")]: {
       fontSize: "0.75rem",
+      display: "flex",
     },
     [theme.breakpoints.up("lg")]: {
       fontSize: "1rem",
+      display: "flex",
     },
 
     minWidth: 100,

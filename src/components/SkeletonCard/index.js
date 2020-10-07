@@ -1,18 +1,14 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-
+import Skeleton from "@material-ui/lab/Skeleton"
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
 import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
-import CardMedia from "@material-ui/core/CardMedia"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
-import megaphone from "../../images/megaphone.svg"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 250,
+    minWidth: 250,
     minHeight: 350,
     maxHeight: 350,
   },
@@ -38,44 +34,24 @@ const useStyles = makeStyles({
   },
 })
 
-const CardItem = (props) => {
-  const { newsItem, onLoad } = props
-
+const SkeletonCardItem = () => {
   const classes = useStyles()
-  const NoImageMedia = () => {
-    return (
-      <div className={classes.noImage}>
-        <img height="70" src={megaphone} alt="Logo" onLoad={onLoad} />
-        <h3>News Feeds Central</h3>
-      </div>
-    )
-  }
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        {!newsItem.img_url ? (
-          <NoImageMedia />
-        ) : (
-          <img
-            className={classes.media}
-            src={newsItem.img_url}
-            alt="imagen"
-            onLoad={onLoad}
-          />
-        )}
+        <Skeleton animation="wave" variant={"rect"} className={classes.media} />
         <CardContent className={classes.content}>
-          <Typography className={classes.content} gutterBottom component="h2">
-            {newsItem.title}
-          </Typography>
+          <Skeleton animation="wave" height={14} style={{ marginBottom: 10 }} />
+          <Skeleton animation="wave" height={14} style={{ marginBottom: 10 }} />
+          <Skeleton animation="wave" height={14} style={{ marginBottom: 10 }} />
+          <Skeleton animation="wave" height={14} style={{ marginBottom: 10 }} />
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.button}>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        <Skeleton animation="wave" width={100} height={40} />
       </CardActions>
     </Card>
   )
 }
 
-export default CardItem
+export default SkeletonCardItem

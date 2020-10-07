@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { fetchNews, ENDPOINT } from "../utils"
 import CardContainer from "../components/CardContainer"
+import * as actions from "../actions"
 
 const today = new Date()
 
@@ -13,6 +14,10 @@ const Home = () => {
       : today.getMonth() + 1
   const strDate = `${today.getFullYear()}-${Month}-${day}`
   const news = useSelector((state) => state.news)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(actions.fetchNewsBegin())
+  }, [])
   useEffect(() => {
     fetchNews(`${ENDPOINT}latest/${strDate}`)
   }, [])

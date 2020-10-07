@@ -1,4 +1,4 @@
-import * as actions from "../actions";
+import * as actions from "../actions"
 
 const initialState = {
   categories: [
@@ -14,7 +14,7 @@ const initialState = {
   navigation: { location: "/", category: "Home", modal: false },
   error: undefined,
   loading: undefined,
-};
+}
 
 // Reducer evalua action types y el caso default es retornar el state
 const newsReducer = (state = initialState, action) => {
@@ -24,9 +24,10 @@ const newsReducer = (state = initialState, action) => {
       // animacion de loading, un spinner...
       return {
         ...state,
+        news: [],
         loading: true,
         error: undefined,
-      };
+      }
 
     case actions.FETCH_NEWS_SUCCESS:
       // Se fetchearon exitosamente las news
@@ -34,9 +35,8 @@ const newsReducer = (state = initialState, action) => {
       // que vienen en el payload las seteo en la store
       return {
         ...state,
-        loading: false,
         news: action.payload.news,
-      };
+      }
 
     case actions.FETCH_NEWS_ERROR:
       // Aqui fallo el fetch, loading ahora es false
@@ -46,7 +46,13 @@ const newsReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
         news: [],
-      };
+      }
+
+    case actions.LOADING_FINISHED:
+      return {
+        ...state,
+        loading: false,
+      }
 
     case actions.SET_CATEGORY:
       return {
@@ -56,7 +62,7 @@ const newsReducer = (state = initialState, action) => {
           category: action.payload.category,
         },
         news: [],
-      };
+      }
 
     case actions.SET_LOCATION:
       return {
@@ -65,7 +71,7 @@ const newsReducer = (state = initialState, action) => {
           ...state.navigation,
           location: action.payload.location,
         },
-      };
+      }
 
     case actions.OPEN_MODAL:
       return {
@@ -74,7 +80,7 @@ const newsReducer = (state = initialState, action) => {
           ...state.navigation,
           modal: true,
         },
-      };
+      }
 
     case actions.CLOSE_MODAL:
       return {
@@ -83,11 +89,11 @@ const newsReducer = (state = initialState, action) => {
           ...state.navigation,
           modal: false,
         },
-      };
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default newsReducer;
+export default newsReducer

@@ -6,7 +6,6 @@ export const ENDPOINT = "https://api.canillitapp.com/"
 const { dispatch } = store
 
 export const fetchNews = async (endpoint) => {
-  dispatch(actions.fetchNewsBegin())
   try {
     const response = await fetch(endpoint)
     if (response.ok) {

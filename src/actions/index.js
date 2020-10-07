@@ -1,7 +1,7 @@
 export const FETCH_NEWS_BEGIN = "FETCH_NEWS_BEGIN"
 export const FETCH_NEWS_SUCCESS = "FETCH_NEWS_SUCCESS"
 export const FETCH_NEWS_ERROR = "FETCH_NEWS_ERROR"
-export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS"
+export const LOADING_FINISHED = "LOADING_FINISHED"
 export const SET_CATEGORY = "SET_CATEGORY"
 export const SET_LOCATION = "SET_LOCATION"
 export const OPEN_MODAL = "OPEN_MODAL"
@@ -19,6 +19,10 @@ export const fetchNews = (news) => ({
 export const fetchNewsError = (error) => ({
   type: FETCH_NEWS_ERROR,
   payload: { error },
+})
+
+export const loadingFinished = () => ({
+  type: LOADING_FINISHED,
 })
 
 export const setCategory = (category) => ({
