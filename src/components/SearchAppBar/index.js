@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import { Link, useHistory } from "react-router-dom"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import IconButton from "@material-ui/core/IconButton"
@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    display: "block",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
   },
   title: {
     flexGrow: 1,
@@ -60,11 +64,11 @@ const useStyles = makeStyles((theme) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
-    width: "100%",
+    width: "8ch",
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "20ch",
+        width: "18ch",
       },
     },
   },
@@ -73,7 +77,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchAppBar() {
   const classes = useStyles()
   const dispatch = useDispatch()
-
+  const history = useHistory()
+  const [searchText, setsearchText] = useState("")
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      history.push("/search/" + searchText)
+    }
+  }
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -93,17 +103,20 @@ export default function SearchAppBar() {
             </Button>
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Buscar…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ "aria-label": "search" }}
+              inputProps={{ "aria-label": "Buscar" }}
+              onChange={(e) => setsearchText(e.target.value)}
+              onKeyDown={(e) => onKeyDown(e)}
+              value={searchText}
             />
+            <Button>
+              <SearchIcon style={{ color: "white" }} />
+            </Button>
           </div>
         </Toolbar>
         <NavBar />

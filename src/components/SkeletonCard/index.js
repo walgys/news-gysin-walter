@@ -22,8 +22,8 @@ const useStyles = makeStyles({
     fontWeight: 800,
   },
   button: {
-    display: "flex",
-    alignItems: "flex-end",
+    borderTop: "1px solid #DDD",
+    justifyContent: "center",
   },
   noImage: {
     height: 120,
@@ -48,7 +48,13 @@ const SkeletonCardItem = () => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.button}>
-        <Skeleton animation="wave" width={100} height={40} />
+        <Skeleton
+          animation="wave"
+          variant={"rect"}
+          width={100}
+          height={30}
+          style={{ marginTop: 5 }}
+        />
       </CardActions>
     </Card>
   )

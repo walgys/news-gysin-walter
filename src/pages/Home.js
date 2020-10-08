@@ -17,10 +17,10 @@ const Home = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(actions.fetchNewsBegin())
-  }, [])
+  }, [dispatch])
   useEffect(() => {
     fetchNews(`${ENDPOINT}latest/${strDate}`)
-  }, [])
+  }, [dispatch, strDate])
 
   return <div>{<CardContainer news={news} />}</div>
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import CardItem from "../CardItem"
@@ -10,7 +10,10 @@ import { useDispatch } from "react-redux"
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: 140,
+    marginTop: 130,
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 80,
+    },
   },
   noDisplay: {
     display: "none",

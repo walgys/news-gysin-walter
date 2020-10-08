@@ -2,19 +2,9 @@ import React, { useEffect } from "react"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import * as actions from "../../actions"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import { Link, useLocation } from "react-router-dom"
-
-const allTabs = [
-  { link: "/", label: "Home" },
-  { link: "/Politics", label: "Política" },
-  { link: "/International", label: "Internacionales" },
-  { link: "/Tech", label: "Tecnología" },
-  { link: "/Shows", label: "Espectáculos" },
-  { link: "/Sports", label: "Deportes" },
-  { link: "/Design", label: "Diseño" },
-]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     [theme.breakpoints.up("md")]: {
-      fontSize: "0.75rem",
+      fontSize: "0.85rem",
       display: "flex",
     },
     [theme.breakpoints.up("lg")]: {
@@ -50,25 +40,33 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
   const location = useLocation()
+  const categories = useSelector((state) => state.categories)
   const dispatch = useDispatch()
+
+  const locationID = categories.find((cat) =>
+    cat.link.includes(location.pathname.split("/")[1])
+  ).id
+  console.log(locationID)
   useEffect(() => {
-    dispatch(actions.setLocation(location.pathname))
-  }, [location, dispatch])
+    dispatch(actions.setLocation(locationID))
+  }, [location, dispatch, locationID])
 
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <Tabs value={location.pathname} centered={true}>
-        {allTabs.map((tab) => (
-          <Tab
-            className={classes.tabs}
-            key={tab.label}
-            label={tab.label}
-            value={tab.link}
-            component={Link}
-            to={tab.link}
-          />
-        ))}
+      <Tabs value={locationID} centered={true}>
+        {categories.map((tab) =>
+          tab.visible ? (
+            <Tab
+              className={classes.tabs}
+              key={tab.label}
+              label={tab.label}
+              value={tab.id}
+              component={Link}
+              to={tab.link}
+            />
+          ) : null
+        )}
       </Tabs>
     </div>
   )

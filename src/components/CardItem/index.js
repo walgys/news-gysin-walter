@@ -1,11 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
 import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
-import CardMedia from "@material-ui/core/CardMedia"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import megaphone from "../../images/megaphone.svg"
@@ -18,6 +17,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 140,
+    width: "100%",
   },
   content: {
     height: 120,
@@ -25,10 +25,18 @@ const useStyles = makeStyles({
     fontSize: 14,
     fontWeight: 800,
   },
-  button: {
-    display: "flex",
-    alignItems: "flex-end",
+  source: {
+    height: 20,
+    fontFamily: "Georgia",
+    fontSize: 14,
+    fontWeight: 500,
   },
+  button: {
+    justifyContent: "center",
+    borderTop: "1px solid #DDD",
+    paddingTop: "15px",
+  },
+
   noImage: {
     height: 120,
     display: "block",
@@ -40,6 +48,7 @@ const useStyles = makeStyles({
 
 const CardItem = (props) => {
   const { newsItem, onLoad } = props
+  const [errorImg, seterrorImg] = useState(false)
 
   const classes = useStyles()
   const NoImageMedia = () => {
@@ -50,28 +59,44 @@ const CardItem = (props) => {
       </div>
     )
   }
+  const onError = () => {
+    seterrorImg(true)
+  }
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => (window.location.href = newsItem.url)}>
         {!newsItem.img_url ? (
           <NoImageMedia />
         ) : (
-          <img
-            className={classes.media}
-            src={newsItem.img_url}
-            alt="imagen"
-            onLoad={onLoad}
-          />
+          <>
+            {!errorImg && (
+              <img
+                className={classes.media}
+                src={newsItem.img_url}
+                alt="imagen"
+                onLoad={onLoad}
+                onError={onError}
+              />
+            )}
+            {errorImg && <NoImageMedia />}
+          </>
         )}
         <CardContent className={classes.content}>
+          <Typography className={classes.source} gutterBottom component="h5">
+            {newsItem.source_name}
+          </Typography>
           <Typography className={classes.content} gutterBottom component="h2">
             {newsItem.title}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.button}>
-        <Button size="small" color="primary">
-          Learn More
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => (window.location.href = newsItem.url)}
+        >
+          VER MAS
         </Button>
       </CardActions>
     </Card>

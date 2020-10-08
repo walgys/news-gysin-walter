@@ -2,13 +2,14 @@ import * as actions from "../actions"
 
 const initialState = {
   categories: [
-    { link: "/", label: "Home", id: 0 },
-    { link: "/Politics", label: "Política", id: 1 },
-    { link: "/International", label: "Internacionales", id: 2 },
-    { link: "/Tech", label: "Tecnología", id: 3 },
-    { link: "/Shows", label: "Espectáculos", id: 4 },
-    { link: "/Sports", label: "Deportes", id: 5 },
-    { link: "/Design", label: "Diseño", id: 6 },
+    { link: "/", label: "Home", id: 0, visible: true },
+    { link: "/Politics", label: "Política", id: 1, visible: true },
+    { link: "/International", label: "Internacionales", id: 2, visible: true },
+    { link: "/Tech", label: "Tecnología", id: 3, visible: true },
+    { link: "/Shows", label: "Espectáculos", id: 4, visible: true },
+    { link: "/Sports", label: "Deportes", id: 5, visible: true },
+    { link: "/Design", label: "Diseño", id: 6, visible: true },
+    { link: "/search", label: "Buscar", id: 7, visible: true },
   ],
   news: [],
   navigation: { location: "/", category: "Home", modal: false },

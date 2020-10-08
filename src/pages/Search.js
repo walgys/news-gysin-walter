@@ -5,24 +5,22 @@ import { fetchNews, ENDPOINT } from "../utils"
 import CardContainer from "../components/CardContainer"
 import * as actions from "../actions"
 
-const Category = () => {
-  const { slug } = useParams()
+const Search = () => {
+  const { id } = useParams()
   const categories = useSelector((state) => state.categories)
   const location = useSelector((state) => state.navigation.location)
   const dispatch = useDispatch()
   const news = useSelector((state) => state.news)
-  const catID = `category/ ${
-    categories.find((cat) => cat.link === "/" + slug).id
-  }`
+  console.log("ser")
   useEffect(() => {
     dispatch(actions.fetchNewsBegin())
   }, [location, dispatch])
   useEffect(() => {
-    fetchNews(`${ENDPOINT}news/${catID}`)
-  }, [slug, catID])
+    fetchNews(`${ENDPOINT}search/${id}`)
+  }, [id])
   //
 
   return <div>{<CardContainer news={news} />}</div>
 }
 
-export default Category
+export default Search
