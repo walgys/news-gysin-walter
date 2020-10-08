@@ -9,12 +9,13 @@ const initialState = {
     { link: "/Shows", label: "Espectáculos", id: 4, visible: true },
     { link: "/Sports", label: "Deportes", id: 5, visible: true },
     { link: "/Design", label: "Diseño", id: 6, visible: true },
-    { link: "/search", label: "Buscar", id: 7, visible: true },
+    { link: "/search", label: "Buscar", id: 7, visible: false },
   ],
   news: [],
-  navigation: { location: "/", category: "Home", modal: false },
+  navigation: { location: "/", modal: false },
   error: undefined,
   loading: undefined,
+  responded: false,
 }
 
 // Reducer evalua action types y el caso default es retornar el state
@@ -27,6 +28,7 @@ const newsReducer = (state = initialState, action) => {
         ...state,
         news: [],
         loading: true,
+        responded: false,
         error: undefined,
       }
 
@@ -55,19 +57,26 @@ const newsReducer = (state = initialState, action) => {
         loading: false,
       }
 
-    case actions.SET_CATEGORY:
+    case actions.FETCH_RESPONSE:
       return {
         ...state,
-        navigation: {
-          ...state.navigation,
-          category: action.payload.category,
-        },
-        news: [],
+        responded: true,
       }
 
     case actions.SET_LOCATION:
+      let newCategories = {}
+      if (action.payload.location === 7) {
+        newCategories = state.categories.map((cat) =>
+          cat.id === 7 ? { ...cat, visible: true } : cat
+        )
+      } else {
+        newCategories = state.categories.map((cat) =>
+          cat.id === 7 ? { ...cat, visible: false } : cat
+        )
+      }
       return {
         ...state,
+        categories: newCategories,
         navigation: {
           ...state.navigation,
           location: action.payload.location,

@@ -13,6 +13,7 @@ export const fetchNews = async (endpoint) => {
       const news = await response.json()
 
       dispatch(actions.fetchNews(news.slice(0, 10)))
+      dispatch(actions.fetchResponse())
     } else {
       dispatch(actions.fetchNewsError(true))
     }

@@ -6,6 +6,7 @@ export const SET_CATEGORY = "SET_CATEGORY"
 export const SET_LOCATION = "SET_LOCATION"
 export const OPEN_MODAL = "OPEN_MODAL"
 export const CLOSE_MODAL = "CLOSE_MODAL"
+export const FETCH_RESPONSE = "FETCH_RESPONSE"
 
 export const fetchNewsBegin = () => ({
   type: FETCH_NEWS_BEGIN,
@@ -19,6 +20,10 @@ export const fetchNews = (news) => ({
 export const fetchNewsError = (error) => ({
   type: FETCH_NEWS_ERROR,
   payload: { error },
+})
+
+export const fetchResponse = () => ({
+  type: FETCH_RESPONSE,
 })
 
 export const loadingFinished = () => ({

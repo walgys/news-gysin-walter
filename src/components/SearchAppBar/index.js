@@ -79,9 +79,15 @@ export default function SearchAppBar() {
   const dispatch = useDispatch()
   const history = useHistory()
   const [searchText, setsearchText] = useState("")
+  const executeSearch = () => {
+    if (searchText.length > 0) {
+      history.push("/search/" + searchText)
+      setsearchText("")
+    }
+  }
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      history.push("/search/" + searchText)
+      executeSearch()
     }
   }
   return (
@@ -114,7 +120,7 @@ export default function SearchAppBar() {
               onKeyDown={(e) => onKeyDown(e)}
               value={searchText}
             />
-            <Button>
+            <Button onClick={() => executeSearch()}>
               <SearchIcon style={{ color: "white" }} />
             </Button>
           </div>

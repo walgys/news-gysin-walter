@@ -8,6 +8,7 @@ import * as actions from "../actions"
 const Search = () => {
   const { id } = useParams()
   const categories = useSelector((state) => state.categories)
+  const responded = useSelector((state) => state.responded)
   const location = useSelector((state) => state.navigation.location)
   const dispatch = useDispatch()
   const news = useSelector((state) => state.news)
@@ -20,7 +21,19 @@ const Search = () => {
   }, [id])
   //
 
-  return <div>{<CardContainer news={news} />}</div>
+  return (
+    <div>
+      {news.length > 0 ? (
+        <CardContainer news={news} />
+      ) : (
+        responded && (
+          <div style={{ marginTop: "200px", textAlign: "center" }}>
+            <h2>{`No se encontraron resultados para "${id}"`}</h2>
+          </div>
+        )
+      )}
+    </div>
+  )
 }
 
 export default Search
