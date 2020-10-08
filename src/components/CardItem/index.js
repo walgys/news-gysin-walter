@@ -64,7 +64,7 @@ const CardItem = (props) => {
   }
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={() => (window.location.href = newsItem.url)}>
+      <CardActionArea onClick={() => window.open(newsItem.url)}>
         {!newsItem.img_url ? (
           <NoImageMedia />
         ) : (
@@ -94,7 +94,7 @@ const CardItem = (props) => {
         <Button
           size="small"
           color="primary"
-          onClick={() => (window.location.href = newsItem.url)}
+          onClick={() => window.open(newsItem.url)}
         >
           VER MAS
         </Button>
