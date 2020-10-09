@@ -34,7 +34,7 @@ export default function BottomAppBar() {
         item.link.includes(location.pathname.split("/")[0])
       ).label
     )
-  }, [location])
+  }, [location, categories])
 
   return (
     <React.Fragment>
