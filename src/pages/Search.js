@@ -7,7 +7,6 @@ import * as actions from "../actions"
 
 const Search = () => {
   const { id } = useParams()
-  const categories = useSelector((state) => state.categories)
   const responded = useSelector((state) => state.responded)
   const location = useSelector((state) => state.navigation.location)
   const dispatch = useDispatch()

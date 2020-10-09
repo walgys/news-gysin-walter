@@ -1,6 +1,5 @@
 import * as actions from "../actions"
 import store from "../store"
-import { useSelector } from "react-redux"
 
 export const ENDPOINT = "https://api.canillitapp.com/"
 
