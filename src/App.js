@@ -9,15 +9,17 @@ import { Provider } from "react-redux";
 
 const App = () => {
   return (
+    <BrowserRouter>
     <Provider store={store}>
-      <BrowserRouter>
+      
         <TopBar />
         <Container maxWidth="xl">
           <View />
           <BottomAppBar />
         </Container>
-      </BrowserRouter>
+      
     </Provider>
+    </BrowserRouter>
   );
 };
 

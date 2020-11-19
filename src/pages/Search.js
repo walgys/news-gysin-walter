@@ -11,7 +11,6 @@ const Search = () => {
   const location = useSelector((state) => state.navigation.location)
   const dispatch = useDispatch()
   const news = useSelector((state) => state.news)
-  console.log("ser")
   useEffect(() => {
     dispatch(actions.fetchNewsBegin())
   }, [location, dispatch])

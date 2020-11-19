@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
     minWidth: 100,
   },
+  tabInvisible: {
+    display: 'none'
+  },
 }))
 
 const NavBar = (props) => {
@@ -43,11 +46,15 @@ const NavBar = (props) => {
   const categories = useSelector((state) => state.categories)
   const dispatch = useDispatch()
 
-  const locationID = categories.find((cat) =>
+  const locationID = typeof categories.find((cat) =>
     cat.link.includes(location.pathname.split("/")[1])
-  ).id
-  console.log(locationID)
+  ) !== 'undefined' ? categories.find((cat) =>
+  cat.link.includes(location.pathname.split("/")[1])
+).id : 0
+
+
   useEffect(() => {
+    
     dispatch(actions.setLocation(locationID))
   }, [location, dispatch, locationID])
 
@@ -65,7 +72,14 @@ const NavBar = (props) => {
               component={Link}
               to={tab.link}
             />
-          ) : null
+          ) : <Tab
+          className={classes.tabInvisible}
+          key={tab.label}
+          label={tab.label}
+          value={tab.id}
+          component={Link}
+          to={tab.link}
+        />
         )}
       </Tabs>
     </div>

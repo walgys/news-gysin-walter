@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchNews, ENDPOINT } from "../utils"
 import CardContainer from "../components/CardContainer"
@@ -7,19 +7,24 @@ import * as actions from "../actions"
 
 const Category = () => {
   const { slug } = useParams()
+  const history = useHistory()
   const categories = useSelector((state) => state.categories)
   const location = useSelector((state) => state.navigation.location)
   const dispatch = useDispatch()
   const news = useSelector((state) => state.news)
-  const catID = `category/ ${
-    categories.find((cat) => cat.link === "/" + slug).id
-  }`
+  const catID = categories.find((cat) => cat.link === "/" + slug)
   useEffect(() => {
     dispatch(actions.fetchNewsBegin())
   }, [location, dispatch])
+  
   useEffect(() => {
-    fetchNews(`${ENDPOINT}news/${catID}`)
-  }, [slug, catID])
+    if(typeof catID === 'undefined'){
+      history.push('/')
+    }else{
+      fetchNews(`${ENDPOINT}news/category/${catID.id}`)
+    }
+    
+  }, [slug, catID, history])
   //
 
   return <div>{<CardContainer news={news} />}</div>

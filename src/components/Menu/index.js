@@ -23,9 +23,11 @@ const Menu = () => {
   const categories = useSelector((state) => state.categories)
   const location = useLocation()
   const dispatch = useDispatch()
-  const locationID = categories.find((cat) =>
+  const locationID = typeof categories.find((cat) =>
     cat.link.includes(location.pathname.split("/")[1])
-  ).id
+  ) !== 'undefined' ? categories.find((cat) =>
+  cat.link.includes(location.pathname.split("/")[1])
+).id : 0
   return (
     <div className={classes.root}>
       <Tabs

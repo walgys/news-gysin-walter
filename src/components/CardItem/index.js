@@ -86,7 +86,7 @@ const CardItem = (props) => {
             {newsItem.source_name}
           </Typography>
           <Typography className={classes.content} gutterBottom component="h2">
-            {newsItem.title}
+            {newsItem.title.substr(0,120)+'...'}
           </Typography>
         </CardContent>
       </CardActionArea>
