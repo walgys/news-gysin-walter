@@ -74,23 +74,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SearchAppBar() {
-  const classes = useStyles()
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const [searchText, setsearchText] = useState("")
-  const executeSearch = () => {
+class SearchAppBar extends React.Component {
+  state = {
+    searchText: ''
+  }
+  
+   executeSearch = () => {
+     const { searchText } = this.state
+     const { dispatch, history } = this.props
     if (searchText.length > 0) {
+      dispatch(actions.setLocation(7))
       history.push("/search/" + searchText)
-      setsearchText("")
+      this.setState({ searchText: '' })
     }
   }
-  const onKeyDown = (e) => {
+  onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      executeSearch()
+      this.executeSearch()
     }
   }
-  return (
+  render(){
+    const {classes, dispatch} = this.props
+    return (
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
@@ -130,4 +135,6 @@ export default function SearchAppBar() {
       </AppBar>
     </div>
   )
+  }
+  
 }
