@@ -12,10 +12,22 @@ import { Button } from "@material-ui/core"
 import * as actions from "../../actions"
 import { connect } from "react-redux"
 import NavBar from "../NavBar"
+import {fetchNews, ENDPOINT} from '../../utils'
 
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
+  },
+  appBar: {
+    
+    [theme.breakpoints.down("sm")]: {
+      flexWrap: 'wrap',
+      minHeight: '64px;',
+      justifyContent: 'center'
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: 'auto',
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -25,14 +37,20 @@ const styles = (theme) => ({
     },
   },
   title: {
-    flexGrow: 1,
-
-    [theme.breakpoints.up("sm")]: {
+    
+    [theme.breakpoints.up("xs")]: {
       display: "block",
+      flexGrow: 1,
+    }, [theme.breakpoints.down("xs")]: {
+      flexGrow: 0,
     },
+
+
   },
   search: {
     position: "relative",
+    display: 'flex',
+    justifyContent: 'space-between',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
@@ -40,6 +58,10 @@ const styles = (theme) => ({
     },
     marginLeft: theme.spacing(1),
     width: "auto",
+     [theme.breakpoints.down("xs")]: {
+      margin: '8px 0px 8px 0px'
+      
+    },
     /*  marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -64,7 +86,10 @@ const styles = (theme) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
-    width: "8ch",
+    width: "12ch",
+    "&:focus": {
+      width: "18ch",
+    },
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
@@ -85,6 +110,9 @@ class SearchAppBar extends React.Component {
     if (searchText.length > 0) {
       dispatch(actions.setLocation(7))
       history.push("/search/" + searchText)
+      this.props.dispatch(actions.fetchNewsBegin())
+      fetchNews(`${ENDPOINT}search/${searchText}`)
+      this.props.dispatch(actions.setLocation(7))
       this.setState({ searchText: '' })
     }
   }
@@ -100,8 +128,8 @@ class SearchAppBar extends React.Component {
     const { classes, dispatch} = this.props
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
-        <Toolbar>
+      <AppBar position="fixed" >
+        <Toolbar className={classes.appBar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
