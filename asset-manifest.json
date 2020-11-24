@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/news-gysin-walter/static/css/main.31abc597.chunk.css",
+    "main.js": "/news-gysin-walter/static/js/main.a7cbcf5c.chunk.js",
+    "main.js.map": "/news-gysin-walter/static/js/main.a7cbcf5c.chunk.js.map",
+    "runtime-main.js": "/news-gysin-walter/static/js/runtime-main.4f005c89.js",
+    "runtime-main.js.map": "/news-gysin-walter/static/js/runtime-main.4f005c89.js.map",
+    "static/js/2.2f2ecadf.chunk.js": "/news-gysin-walter/static/js/2.2f2ecadf.chunk.js",
+    "static/js/2.2f2ecadf.chunk.js.map": "/news-gysin-walter/static/js/2.2f2ecadf.chunk.js.map",
+    "index.html": "/news-gysin-walter/index.html",
+    "precache-manifest.ce0803c5d51cc003a4bdf03496458eb0.js": "/news-gysin-walter/precache-manifest.ce0803c5d51cc003a4bdf03496458eb0.js",
+    "service-worker.js": "/news-gysin-walter/service-worker.js",
+    "static/css/main.31abc597.chunk.css.map": "/news-gysin-walter/static/css/main.31abc597.chunk.css.map",
+    "static/js/2.2f2ecadf.chunk.js.LICENSE.txt": "/news-gysin-walter/static/js/2.2f2ecadf.chunk.js.LICENSE.txt",
+    "static/media/megaphone.svg": "/news-gysin-walter/static/media/megaphone.50f877d9.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4f005c89.js",
+    "static/js/2.2f2ecadf.chunk.js",
+    "static/css/main.31abc597.chunk.css",
+    "static/js/main.a7cbcf5c.chunk.js"
+  ]
+}
