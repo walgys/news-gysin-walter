@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/news-gysin-walter/precache-manifest.9617533ddb6031c20ba97887777ce9df.js"
+  "/news-gysin-walter/precache-manifest.ec7fc55d094fff1633bc08a8b8ec4acb.js"
 );
 
 self.addEventListener('message', (event) => {
