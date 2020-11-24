@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import React from "react"
+import { withStyles } from "@material-ui/core/styles"
 
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import megaphone from "../../images/megaphone.svg"
 
-const useStyles = makeStyles({
+const styles = (theme)=> ({
   root: {
     maxWidth: 250,
     minHeight: 350,
@@ -46,61 +46,65 @@ const useStyles = makeStyles({
   },
 })
 
-const CardItem = (props) => {
-  const { newsItem, onLoad } = props
-  const [errorImg, seterrorImg] = useState(false)
+ class CardItem extends React.Component {
+  state={ errorImg: false}
 
-  const classes = useStyles()
-  const NoImageMedia = () => {
+  onError = () => {
+    this.setState({errorImg: true})
+  }
+  render(){
+    const { newsItem, onLoad } = this.props
+    const {classes} = this.props
+    const NoImageMedia = () => {
+      return (
+        <div className={classes.noImage}>
+          <img height="70" src={megaphone} alt="Logo" onLoad={this.props.onLoad} />
+          <h3>News Feeds Central</h3>
+        </div>
+      )
+    }
     return (
-      <div className={classes.noImage}>
-        <img height="70" src={megaphone} alt="Logo" onLoad={onLoad} />
-        <h3>News Feeds Central</h3>
-      </div>
+      <Card className={classes.root}>
+        <CardActionArea onClick={() => window.open(newsItem.url)}>
+          {!newsItem.img_url ? (
+            <NoImageMedia />
+          ) : (
+            <>
+              {!this.state.errorImg && (
+                <img
+                  className={classes.media}
+                  src={newsItem.img_url}
+                  alt="imagen"
+                  onLoad={onLoad}
+                  onError={this.onError}
+                />
+              )}
+              {this.state.errorImg && <NoImageMedia />}
+            </>
+          )}
+          <CardContent className={classes.content}>
+            <Typography className={classes.source} gutterBottom component="h5">
+              {newsItem.source_name}
+            </Typography>
+            <Typography className={classes.content} gutterBottom component="h2">
+              {newsItem.title.substr(0,120)+'...'}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions className={classes.button}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => window.open(newsItem.url)}
+          >
+            VER MAS
+          </Button>
+        </CardActions>
+      </Card>
     )
   }
-  const onError = () => {
-    seterrorImg(true)
-  }
-  return (
-    <Card className={classes.root}>
-      <CardActionArea onClick={() => window.open(newsItem.url)}>
-        {!newsItem.img_url ? (
-          <NoImageMedia />
-        ) : (
-          <>
-            {!errorImg && (
-              <img
-                className={classes.media}
-                src={newsItem.img_url}
-                alt="imagen"
-                onLoad={onLoad}
-                onError={onError}
-              />
-            )}
-            {errorImg && <NoImageMedia />}
-          </>
-        )}
-        <CardContent className={classes.content}>
-          <Typography className={classes.source} gutterBottom component="h5">
-            {newsItem.source_name}
-          </Typography>
-          <Typography className={classes.content} gutterBottom component="h2">
-            {newsItem.title.substr(0,120)+'...'}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.button}>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => window.open(newsItem.url)}
-        >
-          VER MAS
-        </Button>
-      </CardActions>
-    </Card>
-  )
-}
+  
+  
+} 
 
-export default CardItem
+export default withStyles(styles)(CardItem)

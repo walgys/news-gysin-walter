@@ -1,12 +1,12 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles"
 import Skeleton from "@material-ui/lab/Skeleton"
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
 import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
 
-const useStyles = makeStyles({
+const styles = (theme) => ({
   root: {
     minWidth: 250,
     minHeight: 350,
@@ -34,8 +34,8 @@ const useStyles = makeStyles({
   },
 })
 
-const SkeletonCardItem = () => {
-  const classes = useStyles()
+const SkeletonCardItem = (props) => {
+  const { classes } = props
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -60,4 +60,4 @@ const SkeletonCardItem = () => {
   )
 }
 
-export default SkeletonCardItem
+export default withStyles(styles)(SkeletonCardItem)

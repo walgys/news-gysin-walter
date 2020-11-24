@@ -1,19 +1,19 @@
-import React, { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
+import React from "react"
+import { Link, withRouter } from "react-router-dom"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import InputBase from "@material-ui/core/InputBase"
-import { fade, makeStyles } from "@material-ui/core/styles"
+import { fade, withStyles } from "@material-ui/core/styles"
 import MenuIcon from "@material-ui/icons/Menu"
 import SearchIcon from "@material-ui/icons/Search"
 import { Button } from "@material-ui/core"
 import * as actions from "../../actions"
-import { useDispatch } from "react-redux"
+import { connect } from "react-redux"
 import NavBar from "../NavBar"
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -72,24 +72,31 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-}))
+})
 
-export default function SearchAppBar() {
-  const classes = useStyles()
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const [searchText, setsearchText] = useState("")
-  const executeSearch = () => {
+class SearchAppBar extends React.Component {
+  state = {
+    searchText: ''
+  }
+   executeSearch = () => {
+     const { searchText } = this.state
+     const { dispatch, history } = this.props
     if (searchText.length > 0) {
-      history.push("/search/" + searchText)
-      setsearchText("")
+      dispatch(actions.setLocation(7))
+      history.push(`${process.env.PUBLIC_URL}/search/` + searchText)
+      this.setState({ searchText: '' })
     }
   }
-  const onKeyDown = (e) => {
+  onChange = (value) => {
+    this.setState({ searchText: value})
+  }
+  onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      executeSearch()
+      this.executeSearch()
     }
   }
+  render(){
+    const { classes, dispatch} = this.props
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -116,11 +123,11 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "Buscar" }}
-              onChange={(e) => setsearchText(e.target.value)}
-              onKeyDown={(e) => onKeyDown(e)}
-              value={searchText}
+              onChange={(e) => this.onChange(e.target.value)}
+              onKeyDown={(e) => this.onKeyDown(e)}
+              value={this.state.searchText}
             />
-            <Button onClick={() => executeSearch()}>
+            <Button onClick={() => this.executeSearch()}>
               <SearchIcon style={{ color: "white" }} />
             </Button>
           </div>
@@ -129,4 +136,8 @@ export default function SearchAppBar() {
       </AppBar>
     </div>
   )
+  }
+  
 }
+
+export default withStyles(styles)(connect(null)(withRouter(SearchAppBar)))
