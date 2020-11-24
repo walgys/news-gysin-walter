@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c0f5612d9e3b0c73a20c8b4021978893",
+    "revision": "e0c99493802b34895448184e32212dee",
     "url": "/news-gysin-walter/index.html"
   },
   {
-    "revision": "62439a7123a652585cd5",
+    "revision": "062287c3c34a9a2bc6da",
     "url": "/news-gysin-walter/static/css/main.31abc597.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/news-gysin-walter/static/js/2.2f2ecadf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "62439a7123a652585cd5",
-    "url": "/news-gysin-walter/static/js/main.2d9ec99a.chunk.js"
+    "revision": "062287c3c34a9a2bc6da",
+    "url": "/news-gysin-walter/static/js/main.8e042031.chunk.js"
   },
   {
     "revision": "b54847dda7d36af751cf",
