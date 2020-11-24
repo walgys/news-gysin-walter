@@ -122,11 +122,11 @@ class SearchAppBar extends React.Component {
               }}
               
               inputProps={{ "aria-label": "Buscar" }}
-              onChange={(e) => setsearchText(e.target.value)}
-              onKeyDown={(e) => onKeyDown(e)}
-              value={searchText}
+              onChange={(e) => this.setsearchText(e.target.value)}
+              onKeyDown={(e) => this.onKeyDown(e)}
+              value={this.searchText}
             />
-            <Button onClick={() => executeSearch()}>
+            <Button onClick={() => this.executeSearch()}>
               <SearchIcon style={{ color: "white" }} />
             </Button>
           </div>
