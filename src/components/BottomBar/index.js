@@ -28,11 +28,10 @@ class BottomAppBar extends React.Component {
     const {classes} = this.props
     const getSection = () => {
       try {
-        if(this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1])) !== 'undefined'){
-          return this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1])).label
-        }else{
-          return 'unknown'
-        }
+
+          const item = this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1]))
+          return (item && item.label ) || 'unknown'
+          
        }catch(err){
          console.log(err)
        }}
