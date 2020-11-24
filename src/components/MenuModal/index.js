@@ -2,11 +2,11 @@ import React from "react"
 import Menu from "../Menu"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
 import * as actions from "../../actions"
-import { connect } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
-const SwipeableTemporaryDrawer = (props) => {
-  const { dispatch } = props
-  const { modal } = props.navigation
+export default function SwipeableTemporaryDrawer() {
+  const { modal } = useSelector((state) => state.navigation)
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -21,7 +21,3 @@ const SwipeableTemporaryDrawer = (props) => {
     </div>
   )
 }
-
-const mapStateToProps = (state) => ({ navigation: state.navigation})
-
-export default connect(mapStateToProps)(SwipeableTemporaryDrawer)

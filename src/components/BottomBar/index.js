@@ -1,11 +1,11 @@
-import React from "react"
-import { connect } from "react-redux"
-import { withRouter } from 'react-router-dom'
-import { withStyles } from "@material-ui/core/styles"
+import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import { Typography } from "@material-ui/core"
+import { useLocation } from "react-router-dom"
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     display: "flex",
     top: "auto",
@@ -20,38 +20,29 @@ const styles = (theme) => ({
       fontSize: "1rem",
     },
   },
-})
+}))
 
-class BottomAppBar extends React.Component {
+export default function BottomAppBar() {
+  const classes = useStyles()
+  const categories = useSelector((state) => state.categories)
+  const [value, setValue] = useState()
+  const location = useLocation()
 
-  render(){
-    const {classes} = this.props
-    const getSection = () => {
-      try {
+  useEffect(() => {
+    setValue(
+      categories.find((item) =>
+        item.link.includes(location.pathname.split("/")[0])
+      ).label
+    )
+  }, [location, categories])
 
-          const item = this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1]))
-          return (item && item.label ) || 'unknown'
-          
-       }catch(err){
-         console.log(err)
-       }}
-      
-    return (
+  return (
     <React.Fragment>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Typography className={classes.label} align={"center"}>
-          {getSection()}
+          {value}
         </Typography>
       </AppBar>
     </React.Fragment>
   )
-  }
-  
 }
-
-function mapStateToProps(state) {
-  
-  return { categories: state.categories }
-}
-
-export default withStyles(styles)(connect(mapStateToProps)(withRouter(BottomAppBar)))

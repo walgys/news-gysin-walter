@@ -1,12 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import { connect } from "react-redux"
-import { withStyles } from "@material-ui/core/styles"
-import { Link, withRouter } from "react-router-dom"
-import * as actions from '../../actions'
+import * as actions from "../../actions"
+import { useDispatch, useSelector } from "react-redux"
+import { makeStyles } from "@material-ui/core/styles"
+import { Link, useLocation } from "react-router-dom"
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     color: "black",
@@ -39,10 +39,12 @@ const styles = (theme) => ({
   tabInvisible: {
     display: 'none'
   },
-})
+}))
 
 const NavBar = (props) => {
-  const { location, categories, dispatch} = props
+  const location = useLocation()
+  const categories = useSelector((state) => state.categories)
+  const dispatch = useDispatch()
 
   const locationID = typeof categories.find((cat) =>
     cat.link.includes(location.pathname.split("/")[1])
@@ -50,11 +52,13 @@ const NavBar = (props) => {
   cat.link.includes(location.pathname.split("/")[1])
 ).id : 0
 
-  const { classes } = props
-  const onClick = (id) => {
-    dispatch(actions.closeModal())
-    dispatch(actions.setLocation(id))
-  }
+
+  useEffect(() => {
+    
+    dispatch(actions.setLocation(locationID))
+  }, [location, dispatch, locationID])
+
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <Tabs value={locationID} centered={true}>
@@ -66,7 +70,6 @@ const NavBar = (props) => {
               label={tab.label}
               value={tab.id}
               component={Link}
-              onClick={() => onClick(tab.id)}
               to={tab.link}
             />
           ) : <Tab
@@ -75,7 +78,6 @@ const NavBar = (props) => {
           label={tab.label}
           value={tab.id}
           component={Link}
-          onClick={() => onClick(tab.id)}
           to={tab.link}
         />
         )}
@@ -84,6 +86,4 @@ const NavBar = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({categories: state.categories})
-
-export default withStyles(styles)(connect(mapStateToProps)(withRouter(NavBar)))
+export default NavBar

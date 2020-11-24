@@ -1,23 +1,25 @@
-import React from "react"
-import { withRouter } from "react-router-dom"
-import { connect } from "react-redux"
+import React, { useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
 import { fetchNews, ENDPOINT } from "../utils"
 import CardContainer from "../components/CardContainer"
 import * as actions from "../actions"
 
-class Search extends React.Component {
-  
-  componentDidMount(){
-    this.props.dispatch(actions.fetchNewsBegin())
-    fetchNews(`${ENDPOINT}search/${this.props.match.params.id}`)
-    this.props.dispatch(actions.setLocation(7))
-  }
-  
-  render(){
-    const { id } = this.props.match.params
-    const { responded, news} = this.props
-    
-    return (
+const Search = () => {
+  const { id } = useParams()
+  const responded = useSelector((state) => state.responded)
+  const location = useSelector((state) => state.navigation.location)
+  const dispatch = useDispatch()
+  const news = useSelector((state) => state.news)
+  useEffect(() => {
+    dispatch(actions.fetchNewsBegin())
+  }, [location, dispatch])
+  useEffect(() => {
+    fetchNews(`${ENDPOINT}search/${id}`)
+  }, [id])
+  //
+
+  return (
     <div>
       {news.length > 0 ? (
         <CardContainer news={news} />
@@ -30,10 +32,6 @@ class Search extends React.Component {
       )}
     </div>
   )
-  }
-  
 }
 
-const mapStateToProps = (state) => ({ responded: state.responded, news: state.news})
-
-export default connect(mapStateToProps)(withRouter(Search))
+export default Search

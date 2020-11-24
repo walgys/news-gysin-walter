@@ -1,13 +1,13 @@
 import React from "react"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import { Link} from "react-router-dom"
-import { withStyles } from "@material-ui/core/styles"
-import { withRouter } from 'react-router-dom'
-import { connect } from "react-redux"
+import { Link, useLocation } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
+import { useDispatch, useSelector } from "react-redux"
 import * as actions from "../../actions"
 
-const styles = (theme) => ({
+const Menu = () => {
+  const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper,
@@ -17,21 +17,17 @@ const styles = (theme) => ({
     tabs: {
       borderRight: `1px solid ${theme.palette.divider}`,
     },
-  })
+  }))
+  const classes = useStyles()
 
-const Menu = (props) => {
-  
-  const {classes, categories, location, dispatch} = props
-
+  const categories = useSelector((state) => state.categories)
+  const location = useLocation()
+  const dispatch = useDispatch()
   const locationID = typeof categories.find((cat) =>
     cat.link.includes(location.pathname.split("/")[1])
   ) !== 'undefined' ? categories.find((cat) =>
   cat.link.includes(location.pathname.split("/")[1])
 ).id : 0
-
-const onClick = (id) => {
-  dispatch(actions.closeModal())
-}
   return (
     <div className={classes.root}>
       <Tabs
@@ -51,9 +47,8 @@ const onClick = (id) => {
               label={tab.label}
               value={tab.id}
               component={Link}
-              onClick={() => onClick(tab.id)}
               to={tab.link}
-              
+              onClick={() => dispatch(actions.closeModal())}
             />
           ) : null
         )}
@@ -61,6 +56,5 @@ const onClick = (id) => {
     </div>
   )
 }
-const mapStateToProps = (state) => ({ categories: state.categories})
 
-export default withStyles(styles)(connect(mapStateToProps)(withRouter(Menu)))
+export default Menu
