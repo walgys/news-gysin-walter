@@ -115,6 +115,7 @@ export default function SearchAppBar() {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              
               inputProps={{ "aria-label": "Buscar" }}
               onChange={(e) => setsearchText(e.target.value)}
               onKeyDown={(e) => onKeyDown(e)}
