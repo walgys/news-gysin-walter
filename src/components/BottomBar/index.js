@@ -26,11 +26,19 @@ class BottomAppBar extends React.Component {
 
   render(){
     const {classes} = this.props
+    const getSection = () => {
+      try {
+        return this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1])).label
+       }catch(err){
+         console.log(err)
+         return 'unknown'
+       }}
+      
     return (
     <React.Fragment>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Typography className={classes.label} align={"center"}>
-          {this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1])).label || 'unknown'   }
+          {getSection()}
         </Typography>
       </AppBar>
     </React.Fragment>
