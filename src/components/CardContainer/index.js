@@ -1,13 +1,12 @@
 import React from "react"
-import { useSelector } from "react-redux"
-import { makeStyles } from "@material-ui/core/styles"
+import { connect } from "react-redux"
+import { withStyles } from "@material-ui/core/styles"
 import CardItem from "../CardItem"
 import SkeletonCard from "../SkeletonCard"
 import Grid from "@material-ui/core/Grid"
 import * as actions from "../../actions"
-import { useDispatch } from "react-redux"
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
     marginTop: 130,
@@ -18,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
   noDisplay: {
     display: "none",
   },
-}))
+})
 
 const CardContainer = (props) => {
   const { news } = props
-  const classes = useStyles()
-  const dispatch = useDispatch()
-  const loading = useSelector((state) => state.loading)
+  const {classes} = props
+  const {dispatch} = props
+  const {loading} = props
   let count = 0
   const onLoad = () => {
     count += 1
@@ -60,5 +59,9 @@ const CardContainer = (props) => {
     </>
   )
 }
+const mapStateToProps = (state) =>{
+  return { loading: state.loading }
+}
 
-export default CardContainer
+
+export default withStyles(styles)(connect(mapStateToProps)(CardContainer))

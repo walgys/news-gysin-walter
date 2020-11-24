@@ -1,28 +1,32 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import React from "react"
+import { connect } from "react-redux"
 import { fetchNews, ENDPOINT } from "../utils"
 import CardContainer from "../components/CardContainer"
 import * as actions from "../actions"
 
 const today = new Date()
 
-const Home = () => {
-  const day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate()
-  const Month =
+class Home extends React.Component {
+
+  componentDidMount(){
+    const day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate()
+    const Month =
     today.getMonth() + 1 < 10
       ? "0" + (today.getMonth() + 1)
       : today.getMonth() + 1
-  const strDate = `${today.getFullYear()}-${Month}-${day}`
-  const news = useSelector((state) => state.news)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(actions.fetchNewsBegin())
-  }, [dispatch])
-  useEffect(() => {
+    const strDate = `${today.getFullYear()}-${Month}-${day}`
+    this.props.dispatch(actions.fetchNewsBegin())
     fetchNews(`${ENDPOINT}latest/${strDate}`)
-  }, [dispatch, strDate])
+  }
+  render(){
+    
+    const { news } = this.props
 
-  return <div>{<CardContainer news={news} />}</div>
+    return <div>{<CardContainer news={news} />}</div>
+  }
+  
 }
 
-export default Home
+const mapStateToProps = state => ({ news: state.news })
+
+export default connect(mapStateToProps)(Home)
