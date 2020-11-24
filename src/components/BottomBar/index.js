@@ -30,7 +30,7 @@ class BottomAppBar extends React.Component {
       try {
         return this.props.categories.find(item=> item.link.includes(this.props.location.pathname.split('/')[1])).label
        }catch(err){
-         console.log(err)
+         
          return 'unknown'
        }}
       
