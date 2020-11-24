@@ -78,6 +78,7 @@ class SearchAppBar extends React.Component {
   state = {
     searchText: ''
   }
+  
    executeSearch = () => {
      const { searchText } = this.state
      const { dispatch, history } = this.props
