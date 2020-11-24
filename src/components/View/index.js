@@ -13,15 +13,15 @@ const View = () => {
  
   return (
     <Switch>
-      <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
-      <Route exact path={`${process.env.PUBLIC_URL}/search/:id` }component={Search} />
-      <Route exact path={`${process.env.PUBLIC_URL}/Politics`} component={Politics} />
-      <Route exact path={`${process.env.PUBLIC_URL}/International`} component={International} />
-      <Route exact path={`${process.env.PUBLIC_URL}/Tech`} component={Tech} />
-      <Route exact path={`${process.env.PUBLIC_URL}/Shows`} component={Shows} />
-      <Route exact path={`${process.env.PUBLIC_URL}/Sports`} component={Sports} />
-      <Route exact path={`${process.env.PUBLIC_URL}/Design`} component={Design} />
-      <Route render={() => (<Redirect to={`${process.env.PUBLIC_URL}/`}/>)} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/search/:id" component={Search} />
+      <Route exact path="/Politics" component={Politics} />
+      <Route exact path="/International" component={International} />
+      <Route exact path="/Tech" component={Tech} />
+      <Route exact path="/Shows" component={Shows} />
+      <Route exact path="/Sports" component={Sports} />
+      <Route exact path="/Design" component={Design} />
+      <Route path="/" render={() => (<Redirect to="/"/>)} />
     </Switch>
   )
 }

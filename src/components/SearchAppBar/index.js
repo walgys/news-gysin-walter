@@ -83,7 +83,7 @@ class SearchAppBar extends React.Component {
      const { dispatch, history } = this.props
     if (searchText.length > 0) {
       dispatch(actions.setLocation(7))
-      history.push(`${process.env.PUBLIC_URL}/search/` + searchText)
+      history.push("/search/" + searchText)
       this.setState({ searchText: '' })
     }
   }
